@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>💜 Beavel, be mine? 💗</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(145deg, #2e1a3a 0%, #6b2e6b 40%, #c1549b 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .floating-magic {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 3px #ff99dd);
+            animation: driftUp 7s linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes driftUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(-20vh) rotate(380deg); opacity: 0; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 20;
+            padding: 1.2rem;
+            max-width: 680px;
+        }
+
+        .card {
+            background: rgba(255, 245, 250, 0.92);
+            border-radius: 68px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3), 0 0 0 8px rgba(255, 200, 230, 0.6), 0 0 0 12px #c53a8b;
+            backdrop-filter: blur(4px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #b339fa, #f062b5, #ff85c1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1.2rem;
+        }
+
+        .flirty-sub {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #a03d7c;
+            background: #ffeef7;
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .image-container {
+            width: 280px;
+            height: 280px;
+            margin: 1rem auto 1.2rem;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 18px 28px rgba(128, 0, 128, 0.4), 0 0 0 4px #ffc0e0;
+            background: linear-gradient(135deg, #ffd6e8, #e6ccff);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 28px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 25px 0 15px;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 14px 38px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-yes {
+            background: radial-gradient(circle at 30% 10%, #dd5ee8, #aa2be2);
+            color: white;
+            border: 2px solid #ffddf4;
+        }
+
+        .btn-yes:hover {
+            background: radial-gradient(circle at 30% 10%, #f277d6, #bc3ae8);
+            transform: scale(1.08);
+            box-shadow: 0 0 22px #ff99ee;
+        }
+
+        .btn-no {
+            background: #5e2e5e;
+            color: #ffe0f0;
+            border: 1px solid #ffaacc;
+            min-width: 130px;
+        }
+
+        .success-page {
+            display: none;
+            text-align: center;
+            animation: floatGlow 0.8s ease;
+        }
+
+        @keyframes floatGlow {
+            0% { opacity: 0; transform: scale(0.85) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .success-card {
+            background: rgba(250, 235, 250, 0.96);
+            border-radius: 70px;
+            padding: 2rem;
+            box-shadow: 0 25px 45px rgba(156, 0, 130, 0.4), 0 0 0 6px #ffbbee;
+        }
+
+        .success-page h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #dd66ff, #ff80bf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .flirty-message {
+            color: #b3408a;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 15px 0;
+            background: #fff0fa;
+            display: inline-block;
+            padding: 0.5rem 1.6rem;
+            border-radius: 80px;
+        }
+
+        .confetti-bomb {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: #ff66b5;
+            animation: confettiRain 2s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes confettiRain {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(600deg); opacity: 0; }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .wink-text {
+            font-size: 1rem;
+            margin-top: 20px;
+            color: #aa61af;
+            font-weight: 500;
+            animation: blush 1.8s infinite;
+        }
+
+        @keyframes blush {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; text-shadow: 0 0 5px #ffb0da; }
+        }
+
+        @media (max-width: 550px) {
+            .btn { padding: 12px 28px; font-size: 1.2rem; }
+            h1 { font-size: 2rem; }
+            .image-container { width: 220px; height: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="floating-magic" id="magicBg"></div>
+
+<!-- Main Question Page -->
+<div class="container" id="questionPage">
+    <div class="card">
+        <div class="flirty-sub">✨ hey pretty, eyes on me ✨</div>
+        <h1>Beavel, <br>will you be my girlfriend? 💕</h1>
+        <div class="image-container">
+            <img id="mainImage" 
+                 src="https://i.ibb.co/N2Y0bQKr/Screenshot-2026-03-24-022744.png" 
+                 alt="Romantic proposal moment">
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-yes" id="yesBtn">💜 YES, BABE 💜</button>
+            <button class="btn btn-no" id="noBtn">🙈 not sure...</button>
+        </div>
+        <div class="wink-text">💗 my heart only beats for you 💗</div>
+    </div>
+</div>
+
+<!-- Success Page -->
+<div class="success-page" id="successPage">
+    <div class="success-card">
+        <h1>💋 knew it! you're mine now 💋</h1>
+        <div class="image-container" style="width: 280px; height: 280px; margin: 0 auto;">
+            <img id="successImage"
+                 src="https://i.ibb.co/Pztqm2sG/Screenshot-2026-03-24-021904.png"
+                 alt="Our love celebration">
+        </div>
+        <p class="flirty-message">💖 you just made my whole universe sparkle 💖</p>
+        <p style="font-size: 1.5rem; font-weight: 600; background: linear-gradient(120deg,#c35acb,#ff94c2); background-clip:text; -webkit-background-clip:text; color:transparent;">i'm the luckiest, Beavel 😘💕</p>
+        <p style="margin-top: 15px; font-size:1.1rem;">💜 can't wait to call you mine forever 💜</p>
+    </div>
+</div>
+
+<script>
+    // Floating hearts
+    const magicContainer = document.getElementById('magicBg');
+    const sparkleArray = ['💜', '💗', '💖', '🌸', '💕', '✨', '💋', '🦋', '🌺', '💓', '🎀'];
+
+    setInterval(() => {
+        const el = document.createElement('div');
+        el.className = 'sparkle';
+        el.textContent = sparkleArray[Math.floor(Math.random() * sparkleArray.length)];
+        el.style.fontSize = (Math.random() * 26 + 16) + 'px';
+        el.style.left = Math.random() * 100 + '%';
+        el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        magicContainer.appendChild(el);
+        setTimeout(() => el.remove(), 8500);
+    }, 260);
+
+    const naughtyNoLines = [
+        "🥺 babe... don't break my sparkle heart",
+        "😏 you're just teasing me, right gorgeous?",
+        "💜 come on, you know you wanna say yes",
+        "🌸 pretty please? for your future boyfriend?",
+        "💋 i'll give you infinite cuddles if you say yes",
+        "😘 last chance to be spoiled rotten, Beavel 💖",
+        "❣️ okay okay... you win, just say YES already 😍"
+    ];
+
+    let noClickIndex = 0;
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+
+    function flirtMoveNoButton() {
+        if (noClickIndex >= naughtyNoLines.length) {
+            noBtn.style.transform = "scale(0.4)";
+            noBtn.style.opacity = "0.7";
+            noBtn.textContent = "💜 YES ONLY 💜";
+            yesBtn.style.transform = "scale(2.2)";
+            return;
+        }
+
+        const maxX = window.innerWidth - 200;
+        const maxY = window.innerHeight - 100;
+        const randX = Math.random() * maxX;
+        const randY = Math.random() * maxY;
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = randX + 'px';
+        noBtn.style.top = randY + 'px';
+        noBtn.textContent = naughtyNoLines[noClickIndex];
+        
+        const newScale = 1 + (noClickIndex + 1) * 0.18;
+        yesBtn.style.transform = `scale(${Math.min(newScale, 2.4)})`;
+        
+        noClickIndex++;
+    }
+
+    function handleNoClick(e) {
+        e.preventDefault();
+        flirtMoveNoButton();
+    }
+
+    function sayYesAndCelebrate() {
+        document.getElementById('questionPage').classList.add('hidden');
+        document.getElementById('successPage').style.display = 'block';
+        
+        for (let i = 0; i < 150; i++) {
+            setTimeout(() => {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti-bomb');
+                const colors = ['#dd77ff', '#ff99cc', '#ff66b5', '#c1549b', '#ffb3e6', '#b84cff'];
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.width = Math.random() * 14 + 6 + 'px';
+                conf.style.height = Math.random() * 14 + 6 + 'px';
+                conf.style.left = Math.random() * 100 + '%';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 2800);
+            }, i * 20);
+        }
+        
+        document.title = "💜 Beavel said YES 💜";
+    }
+    
+    yesBtn.addEventListener('click', sayYesAndCelebrate);
+    noBtn.addEventListener('click', handleNoClick);
+    noBtn.addEventListener('mouseenter', flirtMoveNoButton);
+    
+    window.addEventListener('resize', () => {
+        if (noClickIndex === 0) {
+            noBtn.style.position = 'relative';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+        }
+    });
+</script>
+</body>
+</html>
